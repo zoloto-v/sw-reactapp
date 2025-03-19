@@ -3,9 +3,29 @@ import { Section } from "../../shared/ui/section";
 import { Dropdown } from "../../shared/ui/dropdown";
 import { CharacterPreview } from "../../widgets/character-preview";
 import styles from "../characters/characters.module.css";
-import { ICharacter } from "../../shared/types";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../app/lib";
+import { selectCharacterList } from "../../app/model";
+import { getCharacterList } from "../../entities/character/model/character-list-slice";
 
 export const CharactersPage = () => {
+  const dispatch = useAppDispatch();
+  const {data} = useAppSelector(selectCharacterList);
+
+  useEffect(() => {
+    console.log('mounted');
+
+    dispatch(getCharacterList())
+      .unwrap()
+      .catch((err: any) => {
+        console.error(err);
+      })
+
+    return () => {
+      console.log('unmounted');
+    }
+  }, []);
+
   const onChange = (value: any) => alert(value);
 
   const intlMenu = [
@@ -42,65 +62,6 @@ export const CharactersPage = () => {
     }
   ];
 
-  const items: Array<ICharacter> = [
-    {
-        "name": "Luke Skywalker", 
-        "height": "172", 
-        "mass": "77", 
-        "hair_color": "blond", 
-        "skin_color": "fair", 
-        "eye_color": "blue", 
-        "birth_year": "19BBY", 
-        "gender": "male", 
-        "homeworld": "https://swapi.dev/api/planets/1/", 
-        "films": [
-            "https://swapi.dev/api/films/1/", 
-            "https://swapi.dev/api/films/2/", 
-            "https://swapi.dev/api/films/3/", 
-            "https://swapi.dev/api/films/6/"
-        ], 
-        "species": [], 
-        "vehicles": [
-            "https://swapi.dev/api/vehicles/14/", 
-            "https://swapi.dev/api/vehicles/30/"
-        ], 
-        "starships": [
-            "https://swapi.dev/api/starships/12/", 
-            "https://swapi.dev/api/starships/22/"
-        ], 
-        "created": "2014-12-09T13:50:51.644000Z", 
-        "edited": "2014-12-20T21:17:56.891000Z", 
-        "url": "https://swapi.dev/api/people/1/"
-    }, 
-    {
-        "name": "C-3PO", 
-        "height": "167", 
-        "mass": "75", 
-        "hair_color": "n/a", 
-        "skin_color": "gold", 
-        "eye_color": "yellow", 
-        "birth_year": "112BBY", 
-        "gender": "n/a", 
-        "homeworld": "https://swapi.dev/api/planets/1/", 
-        "films": [
-            "https://swapi.dev/api/films/1/", 
-            "https://swapi.dev/api/films/2/", 
-            "https://swapi.dev/api/films/3/", 
-            "https://swapi.dev/api/films/4/", 
-            "https://swapi.dev/api/films/5/", 
-            "https://swapi.dev/api/films/6/"
-        ], 
-        "species": [
-            "https://swapi.dev/api/species/2/"
-        ], 
-        "vehicles": [], 
-        "starships": [], 
-        "created": "2014-12-10T15:10:51.357000Z", 
-        "edited": "2014-12-20T21:17:50.309000Z", 
-        "url": "https://swapi.dev/api/people/2/"
-    },
-  ];
-
   return (
     <Layout>
       <Section>
@@ -122,7 +83,7 @@ export const CharactersPage = () => {
           />
         </div>
         <div className={styles.characters}>
-          {items.map((item) => {
+          {data.map((item) => {
             return (
               <CharacterPreview {...item} />
             );

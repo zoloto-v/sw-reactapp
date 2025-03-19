@@ -1,5 +1,7 @@
 .header {
   position: sticky;
+  top: 0;
+  z-index: 101;
   width: 100%;
   background: #1F2A63;
   box-shadow: 0 0 4px 4px #ffffff20;
