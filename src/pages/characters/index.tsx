@@ -76,7 +76,7 @@ export const CharactersPage = () => {
           />
         </div>
 
-        <h2>60 Peoples for you to choose your favorite</h2>
+        <h2 style={{visibility: count ? 'visible' : 'hidden'}}>{count ? count : 'Many'} peoples for you to choose your favorite</h2>
 
         <div className={styles.filter}>
           <span className="mr-12">color eye</span>
