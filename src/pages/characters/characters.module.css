@@ -1,0 +1,17 @@
+.intl {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin-top: 30px;
+}
+.filter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.characters {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}

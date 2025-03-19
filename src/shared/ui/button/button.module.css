@@ -1,0 +1,18 @@
+.button {
+  cursor: pointer;
+  padding: 17px 64px;
+  font-size: 23px;
+  font-weight: 500;
+  background: #FFF;
+  border-radius: 11px;
+  box-shadow: inset 0px -9px 0px 0px #00000018;
+}
+.button.button_yellow {
+  background: #F5DB13;
+}
+.button.button_green {
+  background: #73D677;
+}
+.button.button_yellow {
+  background: #F5DB13;
+}

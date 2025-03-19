@@ -1,0 +1,14 @@
+.header {
+  position: sticky;
+  width: 100%;
+  background: #1F2A63;
+  box-shadow: 0 0 4px 4px #ffffff20;
+}
+.header__inner {
+  display: flex;
+  height: 93px;
+  width: 1280px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}

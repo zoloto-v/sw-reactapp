@@ -1,0 +1,19 @@
+.tag {
+  padding: 4px 12px;
+  font-size: 12px;
+  color: #212121;
+  border-radius: 10px;
+  box-shadow: inset 0px -2px 0px 0px #00000018;
+}
+.tag.green {
+  background: #73D677;
+}
+.tag.yellow {
+  background: #F5DB13;
+}
+.tag.violete {
+  background: #C956FF;
+}
+.tag.blue {
+  background: #07D6F2;
+}

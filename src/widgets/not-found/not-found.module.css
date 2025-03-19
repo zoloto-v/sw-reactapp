@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.container__text {
+  font-size: 700px;
+  font-weight: 700;
+  line-height: 1;
+  color: #FFFFFF50;
+}
+.container__bg {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 690px;
+  width: 690px;
+  z-index: 100;
+}
