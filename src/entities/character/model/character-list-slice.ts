@@ -22,8 +22,8 @@ const initialState: TState = {
 
 export const getCharacterList = createAsyncThunk(
   'characterList/Data',
-  async () => {
-    const response = await characterService.getCharacterList();
+  async (page?: number) => {
+    const response = await characterService.getCharacterList(page);
     console.log(response);
     return response.data;
   }

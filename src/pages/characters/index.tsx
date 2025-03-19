@@ -8,14 +8,14 @@ import { useAppDispatch, useAppSelector } from "../../app/lib";
 import { selectCharacterList } from "../../app/model";
 import { getCharacterList } from "../../entities/character/model/character-list-slice";
 import { Loader } from "../../shared/ui/loader";
+import { Pagination } from "../../features/pagination";
+import { ReactPaginateProps } from "react-paginate";
 
 export const CharactersPage = () => {
   const dispatch = useAppDispatch();
-  const {data, isPending, isError} = useAppSelector(selectCharacterList);
+  const {data, count, isPending, isError} = useAppSelector(selectCharacterList);
 
   useEffect(() => {
-    console.log('mounted');
-
     dispatch(getCharacterList())
       .unwrap()
       .catch((err: any) => {
@@ -27,7 +27,9 @@ export const CharactersPage = () => {
     }
   }, []);
 
+  const pagesCount = Math.ceil(Number(count) / 10);
   const onChange = (value: any) => alert(value);
+  const onPageChange: ReactPaginateProps['onPageChange'] = ({selected}) => dispatch(getCharacterList(selected + 1));
 
   const intlMenu = [
     {
@@ -95,10 +97,15 @@ export const CharactersPage = () => {
             </div>
           )}
           {!isPending && !isError && data && (
-            <div className={styles.characters}>
-              {data.map(item => <CharacterPreview {...item} />)}
-            </div>
+            <>
+              <div className={styles.characters}>
+                {data.map(item => <CharacterPreview {...item} />)}
+              </div>
+            </>
           )}
+          <Pagination count={pagesCount}
+            onPageChange={onPageChange}
+          />
         </>
       </Section>
     </Layout>
