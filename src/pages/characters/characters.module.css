@@ -10,8 +10,17 @@
   margin-bottom: 30px;
 }
 .characters {
+  flex: 1;
   display: grid;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
+}
+.characters__statuses {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  flex: 1;
 }

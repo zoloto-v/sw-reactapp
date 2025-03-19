@@ -7,10 +7,11 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/lib";
 import { selectCharacterList } from "../../app/model";
 import { getCharacterList } from "../../entities/character/model/character-list-slice";
+import { Loader } from "../../shared/ui/loader";
 
 export const CharactersPage = () => {
   const dispatch = useAppDispatch();
-  const {data} = useAppSelector(selectCharacterList);
+  const {data, isPending, isError} = useAppSelector(selectCharacterList);
 
   useEffect(() => {
     console.log('mounted');
@@ -82,13 +83,23 @@ export const CharactersPage = () => {
             items={filter}
           />
         </div>
-        <div className={styles.characters}>
-          {data.map((item) => {
-            return (
-              <CharacterPreview {...item} />
-            );
-          })}
-        </div>
+        <>
+          {isError && (
+            <div className={styles.characters__statuses}>
+              something went wrong
+            </div>
+          )}
+          {isPending && (
+            <div className={styles.characters__statuses}>
+              <Loader />
+            </div>
+          )}
+          {!isPending && !isError && data && (
+            <div className={styles.characters}>
+              {data.map(item => <CharacterPreview {...item} />)}
+            </div>
+          )}
+        </>
       </Section>
     </Layout>
   );

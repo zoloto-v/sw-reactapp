@@ -9,5 +9,6 @@
   flex-direction: column;
   height: 100%;
   width: 1280px;
+  padding-bottom: 30px;
   flex-grow: 1;
 }
