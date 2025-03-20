@@ -29,9 +29,10 @@
   src: url(./assets/fonts/Karla-BoldItalic.ttf) format('truetype');
 }
 body {
-  font-family: "Karla", serif;
   padding: 0;
   margin: 0;
+  overflow-y: scroll;
+  font-family: "Karla", serif;
 }
 #root {
   display: flex;

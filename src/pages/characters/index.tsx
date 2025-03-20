@@ -67,47 +67,45 @@ export const CharactersPage = () => {
 
   return (
     <Layout>
-      <Section>
-        <div className={styles.intl}>
-          <span className="mr-12">language</span>
-          <Dropdown
-            onChange={onChange}
-            items={intlMenu}
-          />
-        </div>
+      <div className={styles.intl}>
+        <span className="mr-12">language</span>
+        <Dropdown
+          onChange={onChange}
+          items={intlMenu}
+        />
+      </div>
 
-        <h2 style={{visibility: count ? 'visible' : 'hidden'}}>{count ? count : 'Many'} peoples for you to choose your favorite</h2>
+      <h2 style={{visibility: count ? 'visible' : 'hidden'}}>{count ? count : 'Many'} peoples for you to choose your favorite</h2>
 
-        <div className={styles.filter}>
-          <span className="mr-12">color eye</span>
-          <Dropdown 
-            onChange={onChange}
-            items={filter}
-          />
-        </div>
-        <>
-          {isError && (
-            <div className={styles.characters__statuses}>
-              something went wrong
+      <div className={styles.filter}>
+        <span className="mr-12">color eye</span>
+        <Dropdown 
+          onChange={onChange}
+          items={filter}
+        />
+      </div>
+      <>
+        {isError && (
+          <div className={styles.characters__statuses}>
+            something went wrong
+          </div>
+        )}
+        {isPending && (
+          <div className={styles.characters__statuses}>
+            <Loader />
+          </div>
+        )}
+        {!isPending && !isError && data && (
+          <>
+            <div className={styles.characters}>
+              {data.map(item => <CharacterPreview {...item} />)}
             </div>
-          )}
-          {isPending && (
-            <div className={styles.characters__statuses}>
-              <Loader />
-            </div>
-          )}
-          {!isPending && !isError && data && (
-            <>
-              <div className={styles.characters}>
-                {data.map(item => <CharacterPreview {...item} />)}
-              </div>
-            </>
-          )}
-          <Pagination count={pagesCount}
-            onPageChange={onPageChange}
-          />
-        </>
-      </Section>
+          </>
+        )}
+        <Pagination count={pagesCount}
+          onPageChange={onPageChange}
+        />
+      </>
     </Layout>
   );
 };
