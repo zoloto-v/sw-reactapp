@@ -1,9 +1,16 @@
 .character-preview {
+  cursor: pointer;
   padding: 15px 25px;
   min-height: 140px;
   border-radius: 8px;
   background-color: #F0F0F0;
   box-shadow: 0px 4px 4px 0px #00000025;
+  opacity: 100%;
+  transition: all ease-in 0.1s;
+}
+.character-preview:hover {
+  opacity: 80%;
+  transition: all ease-in 0.1s;
 }
 .character-preview__title {
   margin-top: 0;

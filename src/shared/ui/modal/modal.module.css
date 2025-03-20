@@ -1,0 +1,30 @@
+.overflow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: opacity 0.3s ease;
+  z-index: 9998;
+  overflow: hidden;
+}
+.modal {
+  padding-top: 60px;
+  width: 800px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%);
+}
+.modal__inner {
+  height: 400px;
+  width: 100%;
+  border-radius: 16px;
+  background: linear-gradient(#17002F 42%, #1F2A63);
+}
+.modal__close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
