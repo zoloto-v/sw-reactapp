@@ -25,6 +25,7 @@ export interface ILink {
 
 export interface IDropdown {
   onChange: (value: string) => void;
+  selected?: string;
   items?: Array<{
     text: string;
     value: string;

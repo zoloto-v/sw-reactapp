@@ -1,16 +1,13 @@
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useState, useMemo } from "react";
 import styles from "./dropdown.module.css";
 import { IDropdown } from "../../types";
 
-export const Dropdown: React.FC<IDropdown> = ({items = []}) => {
+export const Dropdown: React.FC<IDropdown> = ({onChange, selected = "", items = []}) => {
   const [isVisible, setVisible] = useState<boolean>(false);
-  const [selected, setSelected] = useState<string>('');
 
-  useEffect(() => {
-    setSelected(items[0]?.value ?? '');
-  }, []);
-
-  const text = items.find(i => i.value === selected)?.text ?? '';
+  const text = useMemo(() => {
+    return items.find(i => i.value === selected)?.text ?? '';
+  }, [items, selected]);
 
   const setItem = (event: SyntheticEvent<EventTarget>) => {
     let value = '';
@@ -26,8 +23,8 @@ export const Dropdown: React.FC<IDropdown> = ({items = []}) => {
       }
     }
 
-    setSelected(value);
     setVisible(false);
+    onChange(value);
   };
 
   return (

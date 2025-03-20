@@ -1,5 +1,4 @@
 import { Layout } from "../../shared/ui/layouts";
-import { Section } from "../../shared/ui/section";
 import { Dropdown } from "../../shared/ui/dropdown";
 import { CharacterPreview } from "../../widgets/character-preview";
 import styles from "../characters/characters.module.css";
@@ -10,26 +9,52 @@ import { getCharacterList } from "../../entities/character/model/character-list-
 import { Loader } from "../../shared/ui/loader";
 import { Pagination } from "../../features/pagination";
 import { ReactPaginateProps } from "react-paginate";
+import { setFilter } from "../../entities/character/model/character-list-slice";
+import type { RootState } from "../../app/model";
 
 export const CharactersPage = () => {
   const dispatch = useAppDispatch();
-  const {data, count, isPending, isError} = useAppSelector(selectCharacterList);
+
+  const expensiveFiltering = (item: Record<string, string | number | boolean>, filter: Record<string, string | number | boolean>) => {
+    for (const key in filter) {
+      if ((key in item) && filter[key] && filter[key] !== item[key]) {
+        return false
+      }
+    }
+
+    return true;
+  };
+
+  const {filter} = useAppSelector(selectCharacterList);
+
+  const {data, count, isPending, isError} = useAppSelector((state: RootState) => {
+    const {data, count, isPending, isError, filter} = state.characterList;
+    const filteredData = data.filter(item => expensiveFiltering(item, {'eye_color': filter}))
+    // const sortedData = expensiveSorting(filteredData)
+    // const transformedData = expensiveTransformation(sortedData)
+
+    return {
+      data: filteredData,
+      count,
+      isPending,
+      isError
+    };
+  });
 
   useEffect(() => {
     dispatch(getCharacterList())
-      .unwrap()
-      .catch((err: any) => {
-        console.error(err);
-      })
-
-    return () => {
-      console.log('unmounted');
-    }
   }, []);
 
   const pagesCount = Math.ceil(Number(count) / 10);
-  const onChange = (value: any) => alert(value);
-  const onPageChange: ReactPaginateProps['onPageChange'] = ({selected}) => dispatch(getCharacterList(selected + 1));
+
+  const onChange = (value: string) => {
+    dispatch(setFilter(value));
+  };
+
+  const onPageChange: ReactPaginateProps['onPageChange'] = ({selected}) => {
+    dispatch(setFilter(null));
+    dispatch(getCharacterList(selected + 1));
+  };
 
   const intlMenu = [
     {
@@ -42,7 +67,7 @@ export const CharactersPage = () => {
     },
   ];
 
-  const filter = [
+  const filterOptions = [
     {
       text: 'all',
       value: ''
@@ -71,17 +96,21 @@ export const CharactersPage = () => {
         <span className="mr-12">language</span>
         <Dropdown
           onChange={onChange}
+          selected={'en'}
           items={intlMenu}
         />
       </div>
 
-      <h2 style={{visibility: count ? 'visible' : 'hidden'}}>{count ? count : 'Many'} peoples for you to choose your favorite</h2>
+      <h2 style={{visibility: count ? 'visible' : 'hidden'}}>
+        {count ? count : 'Many'} peoples for you to choose your favorite
+      </h2>
 
       <div className={styles.filter}>
         <span className="mr-12">color eye</span>
         <Dropdown 
           onChange={onChange}
-          items={filter}
+          selected={filter ?? ''}
+          items={filterOptions}
         />
       </div>
       <>
@@ -98,7 +127,7 @@ export const CharactersPage = () => {
         {!isPending && !isError && data && (
           <>
             <div className={styles.characters}>
-              {data.map(item => <CharacterPreview {...item} />)}
+              {data.map(item => <CharacterPreview key={item.name} {...item} />)}
             </div>
           </>
         )}

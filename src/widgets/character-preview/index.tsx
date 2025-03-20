@@ -8,14 +8,14 @@ export const CharacterPreview: React.FC<ICharacter> = ({name = '', height = 0, m
     <div className={styles["character-preview"]}>
       <h3 className={styles["character-preview__title"]}>{name}</h3>
       <div className={styles["character-preview__indexes"]}>
-        <Indicator index={+height} name="height" />
-        <Indicator index={+mass} name="mass" />
+        {isFinite(+height) && <Indicator index={+height} name="height" />}
+        {isFinite(+mass) && <Indicator index={+mass} name="mass" />}
       </div>
       <div className={styles["character-preview__tags"]}>
-        {gender !== "n/a" && (
+        {gender && gender !== "n/a" && (
           <Tag color={GENDER_COLOR_LABEL[gender]} text={gender} />
         )}
-        {birth_year && (
+        {birth_year && birth_year !== "unknown" && (
           <Tag color="blue" text={birth_year} />
         )}
       </div>

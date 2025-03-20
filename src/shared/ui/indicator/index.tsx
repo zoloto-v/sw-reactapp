@@ -6,9 +6,9 @@ export const Indicator: React.FC<IIndicator> = ({index = 0, name = ''}) => {
     <>
       <div className={styles.indicator}>
         <div className={styles.indicator__index}>
-          {index}
+          {isFinite(index) ? index : '—'}
         </div>
-        <span className={styles.indicator__text}>{name}</span>
+        <span className={styles.indicator__text}>{name || '—'}</span>
       </div>
     </>
   );

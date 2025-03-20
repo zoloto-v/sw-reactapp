@@ -3,6 +3,7 @@ import { ICharacter, IResponseList } from "../../../shared/types";
 import { characterService } from "../api";
 
 type TState = {
+  filter: string | null;
   count: number | null;
   next: string | null,
   previous: string | null;
@@ -12,6 +13,7 @@ type TState = {
 };
 
 const initialState: TState = {
+  filter: null,
   count: null,
   next: null,
   previous: null,
@@ -32,7 +34,11 @@ export const getCharacterList = createAsyncThunk(
 export const characterListSlice = createSlice({
   name: 'characterList',
   initialState,
-  reducers: {},
+  reducers: {
+    setFilter: (state, action: PayloadAction<string | null>) => {
+      state.filter = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getCharacterList.pending, state => {
@@ -57,5 +63,7 @@ export const characterListSlice = createSlice({
       })
   }
 });
+
+export const {setFilter} = characterListSlice.actions;
 
 export default characterListSlice.reducer;
