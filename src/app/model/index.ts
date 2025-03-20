@@ -1,13 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from '../../entities/character/model/counter-slice';
 import characterListReducer from "../../entities/character/model/character-list-slice";
-import characterDetailsSlice from "../../entities/character/model/character-details-slice";
+import characterDetailsReducer from "../../entities/character/model/character-details-slice";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     characterList: characterListReducer,
-    characterDetails: characterDetailsSlice,
+    characterDetails: characterDetailsReducer,
   },
 });
 

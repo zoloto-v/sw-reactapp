@@ -5,8 +5,12 @@ import { Tag } from "../../../shared/ui/tag";
 import styles from "./character-details-modal.module.css";
 import starwarsImg from "../../../assets/starwars.svg";
 import { GENDER_COLOR_LABEL } from "../../../shared/types";
+import { useAppSelector } from "../../../app/lib";
+import { selectCharacterDetails } from "../../../app/model";
 
 export const CharacterDetailsModal: React.FC<{onClose: () => void}> = ({onClose}) => {
+  const {data} = useAppSelector(selectCharacterDetails);
+
   return (
     <Modal onClose={onClose}> 
       <div className={styles.detail}>
@@ -15,10 +19,10 @@ export const CharacterDetailsModal: React.FC<{onClose: () => void}> = ({onClose}
             style={{background: `url(${starwarsImg}) center center no-repeat`, backgroundSize: "contain"}} 
           >
             <div className={styles.detail__tags}>
-              {true && (
+              {data?.gender && data?.gender && data?.gender !== "n/a" && (
                 <Tag color={GENDER_COLOR_LABEL["male"]} text={"male"} />
               )}
-              {true && (
+              {data?.birth_year && data?.birth_year !== "unknown" && (
                 <Tag color="blue" text={"41.9BBY"} />
               )}
             </div>
@@ -27,22 +31,21 @@ export const CharacterDetailsModal: React.FC<{onClose: () => void}> = ({onClose}
         <div className={styles.detail__content}>
           <div className={styles.detail__top}>
             <h2 className="grey">
-              Jabba Desilijic Tiure
+              {data?.name}
             </h2>
             <Card>
               <div className={styles.detail__description}>
-                <span>hair color: brown: brown</span>
-                <span>skin color - white</span>
-                <span>hair color: brown</span>
+                <span>{`hair color: ${data?.hair_color}`}</span>
+                <span>{`skin color: ${data?.skin_color}`}</span>
               </div>
             </Card>
           </div>
           <div className={styles.detail__indicators}>
             <Card>
-              <Indicator index={75} name="height" />
+              {isFinite(Number(data?.height)) && <Indicator index={Number(data?.height)} name="height" />}
             </Card>
             <Card>
-              <Indicator index={105} name="weight" />
+              {isFinite(Number(data?.mass)) && <Indicator index={Number(data?.mass)} name="mass" />}
             </Card>
           </div>
         </div>

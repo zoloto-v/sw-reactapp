@@ -2,7 +2,7 @@ import { Layout } from "../../shared/ui/layouts";
 import { Dropdown } from "../../shared/ui/dropdown";
 import { CharacterPreview } from "../../widgets/character-preview";
 import styles from "../characters/characters.module.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/lib";
 import { selectCharacterList } from "../../app/model";
 import { getCharacterList } from "../../entities/character/model/character-list-slice";
@@ -11,8 +11,12 @@ import { Pagination } from "../../features/pagination";
 import { ReactPaginateProps } from "react-paginate";
 import { setFilter } from "../../entities/character/model/character-list-slice";
 import type { RootState } from "../../app/model";
+import { clear, getCharacterDetails } from "../../entities/character/model/character-details-slice";
+import { createPortal } from "react-dom";
+import { CharacterDetailsModal } from "../../entities/character/ui";
 
 export const CharactersPage = () => {
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useAppDispatch();
 
   const expensiveFiltering = (item: Record<string, string | number | boolean>, filter: Record<string, string | number | boolean>) => {
@@ -54,6 +58,17 @@ export const CharactersPage = () => {
   const onPageChange: ReactPaginateProps['onPageChange'] = ({selected}) => {
     dispatch(setFilter(null));
     dispatch(getCharacterList(selected + 1));
+  };
+
+  const openModal = (url: string) => {
+    const {pathname} = new URL(url);
+    dispatch(getCharacterDetails(pathname));
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    dispatch(clear());
+    setShowModal(false);
   };
 
   const intlMenu = [
@@ -127,7 +142,12 @@ export const CharactersPage = () => {
         {!isPending && !isError && data && (
           <>
             <div className={styles.characters}>
-              {data.map(item => <CharacterPreview key={item.name} {...item} />)}
+              {data.map(item => (
+                <CharacterPreview key={item.name} 
+                  {...item} 
+                  onClick={() => openModal(item.url)} 
+                />
+              ))}
             </div>
           </>
         )}
@@ -135,6 +155,11 @@ export const CharactersPage = () => {
           onPageChange={onPageChange}
         />
       </>
+      
+      {showModal && createPortal(
+        <CharacterDetailsModal onClose={closeModal} />,
+        document.body
+      )}
     </Layout>
   );
 };

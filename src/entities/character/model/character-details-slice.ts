@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ICharacter } from "../../../shared/types";
+import { characterService } from "../api";
 
 type TState = {
   data: ICharacter | null;
@@ -31,24 +32,29 @@ const initialState: TState = {
 };
 
 export const getCharacterDetails = createAsyncThunk(
-  'characterList/Data', 
-  async (id: string) => {
-    console.log(id);
-    return await Promise.resolve(null);
+  'characterDetails/Data', 
+  async (path: string) => {
+    const response = await characterService.getCharacterById(path);
+    return response.data;
   }
 );
 
 export const characterDetailsSlice = createSlice({
   name: 'characterDetails',
   initialState,
-  reducers: {},
+  reducers: {
+    clear: (state) => {
+      Object.assign(state, initialState);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getCharacterDetails.pending, (state) => {
         state.isPending = true;
         state.isError = false;
       })
-      .addCase(getCharacterDetails.fulfilled, (state, action: PayloadAction<ICharacter | null>) => {
+      .addCase(getCharacterDetails.fulfilled, (state, action: PayloadAction<ICharacter>) => {
+        console.log('sss')
         const {payload} = action;
         state.data = payload; 
         state.isPending = false;
@@ -60,5 +66,7 @@ export const characterDetailsSlice = createSlice({
       })
   }
 });
+
+export const {clear} = characterDetailsSlice.actions;
 
 export default characterDetailsSlice.reducer;

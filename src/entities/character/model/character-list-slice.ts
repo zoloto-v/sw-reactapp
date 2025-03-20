@@ -26,7 +26,6 @@ export const getCharacterList = createAsyncThunk(
   'characterList/Data',
   async (page?: number) => {
     const response = await characterService.getCharacterList(page);
-    console.log(response);
     return response.data;
   }
 );
@@ -35,6 +34,9 @@ export const characterListSlice = createSlice({
   name: 'characterList',
   initialState,
   reducers: {
+    clear: (state) => {
+      Object.assign(state, initialState);
+    },
     setFilter: (state, action: PayloadAction<string | null>) => {
       state.filter = action.payload;
     },

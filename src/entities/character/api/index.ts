@@ -2,10 +2,10 @@ import { http } from "../../../shared/api";
 
 class CharacterService {
   getCharacterList = async (page = 1) => {
-    return http.get(`/people/?page=${page}`);
+    return http.get(`/api/people/?page=${page}`);
   };
-  getCharacterById = async (id: string) => {
-    return http.get(`/people/${id}`);
+  getCharacterById = async (path: string) => {
+    return http.get(`${path}`);
   };
 };
 
