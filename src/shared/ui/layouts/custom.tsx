@@ -1,7 +1,7 @@
 import { Header } from '../header';
 import { Logo } from '../logo';
 import { Nav } from '../nav';
-import logo from '../../../assets/logo.svg';
+import logo from '../../assets/images/logo.svg';
 
 export const CustomLayout: React.FC<{
   children: React.ReactNode;

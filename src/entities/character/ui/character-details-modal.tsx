@@ -3,7 +3,7 @@ import { Card } from "../../../shared/ui/card";
 import { Indicator } from "../../../shared/ui/indicator";
 import { Tag } from "../../../shared/ui/tag";
 import styles from "./character-details-modal.module.css";
-import starwarsImg from "../../../assets/starwars.svg";
+import starwarsImg from "../../../shared/assets/images/starwars.svg";
 import { GENDER_COLOR_LABEL } from "../../../shared/types";
 import { useAppSelector } from "../../../app/lib";
 import { selectCharacterDetails } from "../../../app/model";

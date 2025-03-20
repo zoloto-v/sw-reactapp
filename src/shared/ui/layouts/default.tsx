@@ -2,7 +2,7 @@ import { Header } from '../header';
 import { Logo } from '../logo';
 import { Nav } from '../nav';
 import { Section } from '../section';
-import logo from '../../../assets/logo.svg';
+import logo from '../../assets/images/logo.svg';
 import { IChildrenProps } from '../../types';
 
 export const Layout: React.FC<IChildrenProps> = ({ children = null }) => {

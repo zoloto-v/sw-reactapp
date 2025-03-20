@@ -1,7 +1,7 @@
 import { CustomLayout } from "../../shared/ui/layouts";
 import { Banner } from "../../widgets/greetings";
 import { Section } from "../../shared/ui/section";
-import bg from "../../assets/yoda.svg";
+import bg from "../../shared/assets/images/yoda.svg";
 import styles from "./home.module.css";
 import { BUTTON_BG } from "../../shared/types/ui-types";
 import { Link } from "../../shared/ui/link";

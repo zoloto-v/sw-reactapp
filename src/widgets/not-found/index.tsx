@@ -1,5 +1,5 @@
 import styles from "./not-found.module.css"
-import ball from "../../assets/ball.svg";
+import ball from "../../shared/assets/images/ball.svg";
 
 export const NotFound = () => {
   return (
