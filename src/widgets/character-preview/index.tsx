@@ -4,6 +4,8 @@ import { Tag } from "../../shared/ui/tag";
 import styles from "./character-preview.module.css";
 import Skeleton from "react-loading-skeleton";
 
+// pointer-events: none;
+
 export const CharacterPreview: React.FC<
   Partial<ICharacter> & { onClick: () => void; isPending: boolean }
 > = ({
@@ -16,7 +18,11 @@ export const CharacterPreview: React.FC<
   isPending,
 }) => {
   return (
-    <div className={styles["character-preview"]} onClick={onClick}>
+    <div
+      className={styles["character-preview"]}
+      onClick={onClick}
+      style={{ pointerEvents: isPending ? "none" : "all" }}
+    >
       <h3 className={styles["character-preview__title"]}>
         {isPending ? <Skeleton /> : name}
       </h3>
