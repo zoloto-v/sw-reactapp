@@ -22,6 +22,7 @@
   width: 100%;
   border-radius: 16px;
   background: linear-gradient(#17002F 42%, #1F2A63);
+  overflow: hidden;
 }
 .modal__close {
   position: absolute;
