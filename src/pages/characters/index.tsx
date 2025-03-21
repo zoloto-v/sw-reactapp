@@ -17,7 +17,7 @@ import {
 import { createPortal } from "react-dom";
 import { CharacterDetailsModal } from "../../entities/character/ui";
 import Skeleton from "react-loading-skeleton";
-const skeletonsList = new Array(12)
+const skeletonsList = new Array(9)
   .fill(null)
   .map((_, i) => ({ name: String(i), url: "#" }));
 
