@@ -6,47 +6,60 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/lib";
 import { selectCharacterList } from "../../app/model";
 import { getCharacterList } from "../../entities/character/model/character-list-slice";
-import { Loader } from "../../shared/ui/loader";
 import { Pagination } from "../../features/pagination";
 import { ReactPaginateProps } from "react-paginate";
 import { setFilter } from "../../entities/character/model/character-list-slice";
 import type { RootState } from "../../app/model";
-import { clear, getCharacterDetails } from "../../entities/character/model/character-details-slice";
+import {
+  clear,
+  getCharacterDetails,
+} from "../../entities/character/model/character-details-slice";
 import { createPortal } from "react-dom";
 import { CharacterDetailsModal } from "../../entities/character/ui";
+import Skeleton from "react-loading-skeleton";
+const skeletonsList = new Array(12)
+  .fill(null)
+  .map((_, i) => ({ name: String(i), url: "#" }));
 
 export const CharactersPage = () => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useAppDispatch();
 
-  const expensiveFiltering = (item: Record<string, string | number | boolean>, filter: Record<string, string | number | boolean>) => {
+  const expensiveFiltering = (
+    item: Record<string, string | number | boolean>,
+    filter: Record<string, string | number | boolean>
+  ) => {
     for (const key in filter) {
-      if ((key in item) && filter[key] && filter[key] !== item[key]) {
-        return false
+      if (key in item && filter[key] && filter[key] !== item[key]) {
+        return false;
       }
     }
 
     return true;
   };
 
-  const {filter} = useAppSelector(selectCharacterList);
+  const { filter } = useAppSelector(selectCharacterList);
 
-  const {data, count, isPending, isError} = useAppSelector((state: RootState) => {
-    const {data, count, isPending, isError, filter} = state.characterList;
-    const filteredData = data.filter(item => expensiveFiltering(item, {'eye_color': filter}))
-    // const sortedData = expensiveSorting(filteredData)
-    // const transformedData = expensiveTransformation(sortedData)
+  const { data, count, isPending, isError } = useAppSelector(
+    (state: RootState) => {
+      const { data, count, isPending, isError, filter } = state.characterList;
+      const filteredData = data.filter((item) =>
+        expensiveFiltering(item, { eye_color: filter })
+      );
+      // const sortedData = expensiveSorting(filteredData)
+      // const transformedData = expensiveTransformation(sortedData)
 
-    return {
-      data: filteredData,
-      count,
-      isPending,
-      isError
-    };
-  });
+      return {
+        data: filteredData,
+        count,
+        isPending,
+        isError,
+      };
+    }
+  );
 
   useEffect(() => {
-    dispatch(getCharacterList())
+    dispatch(getCharacterList());
   }, []);
 
   const pagesCount = Math.ceil(Number(count) / 10);
@@ -55,13 +68,13 @@ export const CharactersPage = () => {
     dispatch(setFilter(value));
   };
 
-  const onPageChange: ReactPaginateProps['onPageChange'] = ({selected}) => {
+  const onPageChange: ReactPaginateProps["onPageChange"] = ({ selected }) => {
     dispatch(setFilter(null));
     dispatch(getCharacterList(selected + 1));
   };
 
   const openModal = (url: string) => {
-    const {pathname} = new URL(url);
+    const { pathname } = new URL(url);
     dispatch(getCharacterDetails(pathname));
     setShowModal(true);
   };
@@ -73,58 +86,58 @@ export const CharactersPage = () => {
 
   const intlMenu = [
     {
-      text: 'english',
-      value: 'en',
+      text: "english",
+      value: "en",
     },
     {
-      text: 'wookiee',
-      value: 'wookiee',
+      text: "wookiee",
+      value: "wookiee",
     },
   ];
 
   const filterOptions = [
     {
-      text: 'all',
-      value: ''
+      text: "all",
+      value: "",
     },
     {
-      text: 'brown',
-      value: 'brown'
+      text: "brown",
+      value: "brown",
     },
     {
-      text: 'red',
-      value: 'red'
+      text: "red",
+      value: "red",
     },
     {
-      text: 'blue',
-      value: 'blue'
+      text: "blue",
+      value: "blue",
     },
     {
-      text: 'white',
-      value: 'white'
-    }
+      text: "white",
+      value: "white",
+    },
   ];
 
   return (
     <Layout>
       <div className={styles.intl}>
         <span className="mr-12">language</span>
-        <Dropdown
-          onChange={onChange}
-          selected={'en'}
-          items={intlMenu}
-        />
+        <Dropdown onChange={onChange} selected={"en"} items={intlMenu} />
       </div>
 
-      <h2 style={{visibility: count ? 'visible' : 'hidden'}}>
-        {count ? count : 'Many'} peoples for you to choose your favorite
+      <h2>
+        {isPending ? (
+          <Skeleton count={1} width="600px" />
+        ) : (
+          `${count} peoples for you to choose your favorite`
+        )}
       </h2>
 
       <div className={styles.filter}>
         <span className="mr-12">color eye</span>
-        <Dropdown 
+        <Dropdown
           onChange={onChange}
-          selected={filter ?? ''}
+          selected={filter ?? ""}
           items={filterOptions}
         />
       </div>
@@ -135,31 +148,39 @@ export const CharactersPage = () => {
           </div>
         )}
         {isPending && (
-          <div className={styles.characters__statuses}>
-            <Loader />
+          <div className={styles.characters}>
+            {skeletonsList.map((item) => (
+              <CharacterPreview
+                {...item}
+                key={item.name}
+                isPending={isPending}
+                onClick={() => openModal(item.url)}
+              />
+            ))}
           </div>
         )}
         {!isPending && !isError && data && (
           <>
             <div className={styles.characters}>
-              {data.map(item => (
-                <CharacterPreview key={item.name} 
-                  {...item} 
-                  onClick={() => openModal(item.url)} 
+              {data.map((item) => (
+                <CharacterPreview
+                  {...item}
+                  key={item.name}
+                  isPending={isPending}
+                  onClick={() => openModal(item.url)}
                 />
               ))}
             </div>
           </>
         )}
-        <Pagination count={pagesCount}
-          onPageChange={onPageChange}
-        />
+        <Pagination count={pagesCount} onPageChange={onPageChange} />
       </>
-      
-      {showModal && createPortal(
-        <CharacterDetailsModal onClose={closeModal} />,
-        document.body
-      )}
+
+      {showModal &&
+        createPortal(
+          <CharacterDetailsModal onClose={closeModal} />,
+          document.body
+        )}
     </Layout>
   );
 };
