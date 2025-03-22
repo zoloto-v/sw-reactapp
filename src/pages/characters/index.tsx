@@ -17,9 +17,17 @@ import {
 import { createPortal } from "react-dom";
 import { CharacterDetailsModal } from "../../entities/character/ui";
 import Skeleton from "react-loading-skeleton";
-const skeletonsList = new Array(9)
-  .fill(null)
-  .map((_, i) => ({ name: String(i), url: "#" }));
+import { ICharacter } from "../../shared/types";
+const skeletonsList: Array<
+  Pick<ICharacter, "name" | "height" | "mass" | "gender" | "birth_year">
+> = new Array(9).fill(null).map((_, i) => ({
+  name: String(i),
+  url: "#",
+  height: "",
+  mass: "",
+  gender: "n/a",
+  birth_year: "",
+}));
 
 export const CharactersPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -154,7 +162,7 @@ export const CharactersPage = () => {
                 {...item}
                 key={item.name}
                 isPending={isPending}
-                onClick={() => openModal(item.url)}
+                onClick={() => {}}
               />
             ))}
           </div>

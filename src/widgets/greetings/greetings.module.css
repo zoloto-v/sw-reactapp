@@ -1,4 +1,8 @@
 .banner {}
 .banner__text {
   color: #fff;
+
+  @media (max-width: 1000px) {
+    text-align: center;;
+  }
 }
