@@ -9,6 +9,15 @@
   font-weight: 700;
   line-height: 1;
   color: #FFFFFF50;
+
+  @media (max-width: 1400px) {
+    font-size: 370px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 160px;
+    margin-bottom: 20px;
+  }
 }
 .container__bg {
   display: block;
@@ -19,4 +28,15 @@
   height: 690px;
   width: 690px;
   z-index: 100;
+  background-size: contain;
+
+  @media (max-width: 1400px) {
+    height: 380px;
+    width: 380px;
+  }
+
+  @media (max-width: 768px) {
+    height: 160px;
+    width: 160px;
+  }
 }

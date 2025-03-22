@@ -12,11 +12,11 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 1200px;
+  width: 1160px;
   padding-bottom: 30px;
   flex-grow: 1;
 
-  @media (max-width: 1280px) {
+  @media (max-width: 1200px) {
     width: 900px;
   }
 

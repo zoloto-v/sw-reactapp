@@ -11,12 +11,12 @@
 .header__inner {
   display: flex;
   height: 93px;
-  width: 1200px;
+  width: 1160px;
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
 
-  @media (max-width: 1280px) {
+  @media (max-width: 1200px) {
     width: 900px;
   }
 
