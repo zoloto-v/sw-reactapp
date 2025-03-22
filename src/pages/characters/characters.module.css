@@ -14,6 +14,14 @@
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 .characters__statuses {
   display: flex;

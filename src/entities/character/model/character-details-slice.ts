@@ -54,7 +54,6 @@ export const characterDetailsSlice = createSlice({
         state.isError = false;
       })
       .addCase(getCharacterDetails.fulfilled, (state, action: PayloadAction<ICharacter>) => {
-        console.log('sss')
         const {payload} = action;
         state.data = payload; 
         state.isPending = false;
