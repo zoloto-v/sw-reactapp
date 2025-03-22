@@ -1,14 +1,10 @@
-import { ICharacter, GENDER_COLOR_LABEL } from "../../shared/types";
+import { GENDER_COLOR_LABEL, ICharacterPreview } from "../../shared/types";
 import { Indicator } from "../../shared/ui/indicator";
 import { Tag } from "../../shared/ui/tag";
 import styles from "./character-preview.module.css";
 import Skeleton from "react-loading-skeleton";
 
-// pointer-events: none;
-
-export const CharacterPreview: React.FC<
-  Partial<ICharacter> & { onClick: () => void; isPending: boolean }
-> = ({
+export const CharacterPreview: React.FC<ICharacterPreview> = ({
   name = "",
   height = 0,
   mass = 0,

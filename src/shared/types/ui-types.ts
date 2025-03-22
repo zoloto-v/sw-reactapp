@@ -1,4 +1,5 @@
 import { CSSProperties } from "react";
+import { ICharacter } from "./entities";
 
 export interface IHeaderProps {
   logo: React.ReactNode;
@@ -75,4 +76,9 @@ export enum GENDER_COLOR_LABEL {
 
 export interface IList<T> {
   items: Array<T>;
+};
+
+export interface ICharacterPreview extends Pick<ICharacter, "name" | "height" | "mass" | "gender" | "birth_year"> {
+  onClick: () => void;
+  isPending?: boolean;
 };
