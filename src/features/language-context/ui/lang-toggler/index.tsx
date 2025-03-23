@@ -3,7 +3,12 @@ import btnImg from "../../../../shared/assets/images/btn-icon.svg";
 import { useLanguageContext } from "../../provider";
 
 export const LangToggler = () => {
-  const { onClickLanguageChange } = useLanguageContext();
+  let onClickLanguageChange;
+  const value = useLanguageContext();
+
+  if (value && "onClickLanguageChange" in value) {
+    onClickLanguageChange = value["onClickLanguageChange"];
+  }
 
   return (
     <button className={styles["lang-toggler"]} onClick={onClickLanguageChange}>
