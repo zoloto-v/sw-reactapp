@@ -11,9 +11,12 @@ export const LanguageContextProvider = ({ children }) => {
 
   const { t, i18n } = useTranslation();
 
-  const onClickLanguageChange = (e) => {
-    const language = e.target.value;
-    i18n.changeLanguage(language);
+  const onClickLanguageChange = () => {
+    const currentLang = i18n.language;
+    const langs = Object.keys(i18n.store.data);
+    const value = langs.filter((l) => l !== currentLang)?.[0];
+
+    i18n.changeLanguage(value);
   };
 
   return (

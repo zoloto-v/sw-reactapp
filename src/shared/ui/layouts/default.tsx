@@ -5,9 +5,10 @@ import { Section } from "../section";
 import logo from "../../assets/images/logo.svg";
 import { IChildrenProps } from "../../types";
 import { useLanguageContext } from "../../../features/language-context/provider";
+import { LangToggler } from "../../../features/language-context/ui";
 
 export const Layout: React.FC<IChildrenProps> = ({ children = null }) => {
-  const { t } = useLanguageContext();
+  const { t, onClickLanguageChange } = useLanguageContext();
   // TODO: вынести из файла
   const menuItems = [
     {
@@ -26,6 +27,7 @@ export const Layout: React.FC<IChildrenProps> = ({ children = null }) => {
     <>
       <Header logo={<Logo src={logo} />} nav={<Nav items={menuItems} />} />
       <Section>{children}</Section>
+      <LangToggler onClick={onClickLanguageChange} />
     </>
   );
 };

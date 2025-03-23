@@ -1,0 +1,18 @@
+.lang-toggler {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  padding: 10px;
+  border-radius: 50%;
+  outline: none;
+  background: #F28F16;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  transition: all 0.1s ease-out;
+  box-shadow: 0 2px 7px -1px #F28F16;
+}
+.lang-toggler:hover {
+  opacity: 90%;
+  transition: all 0.1s ease-out;
+}
