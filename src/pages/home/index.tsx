@@ -6,9 +6,11 @@ import styles from "./home.module.css";
 import { BUTTON_BG } from "../../shared/types/ui-types";
 import { Link } from "../../shared/ui/link";
 import { useMediaQuery } from "react-responsive";
+import { useLanguageContext } from "../../features/language-context/provider";
 
 export const HomePage = () => {
   const isMobileVisible = useMediaQuery({ query: "(max-width: 1000px)" });
+  const { t } = useLanguageContext();
   return (
     <CustomLayout>
       <div className={styles.page}>
@@ -25,12 +27,12 @@ export const HomePage = () => {
           <Section>
             <div className={styles["left-block"]}>
               <Banner
-                title="Find all your favorite character"
-                text="You can find out all the information about your favorite characters"
+                title={t("homePage.title")}
+                text={t("homePage.subTitle")}
               />
               <div className="mt-36" />
               <Link to="/characters" bg={BUTTON_BG["yellow"]}>
-                See more
+                {t("links.moreBtn")}
               </Link>
             </div>
           </Section>

@@ -9,10 +9,12 @@ import { useAppSelector } from "../../../app/lib";
 import { selectCharacterDetails } from "../../../app/model";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useTranslation } from "react-i18next";
 
 export const CharacterDetailsModal: React.FC<{ onClose: () => void }> = ({
   onClose,
 }) => {
+  const { t } = useTranslation();
   const { data, isPending } = useAppSelector(selectCharacterDetails);
 
   return (
@@ -32,10 +34,13 @@ export const CharacterDetailsModal: React.FC<{ onClose: () => void }> = ({
               >
                 <div className={styles.detail__tags}>
                   {data?.gender && data?.gender && data?.gender !== "n/a" && (
-                    <Tag color={GENDER_COLOR_LABEL["male"]} text={"male"} />
+                    <Tag
+                      color={GENDER_COLOR_LABEL[data?.gender]}
+                      text={data?.gender}
+                    />
                   )}
                   {data?.birth_year && data?.birth_year !== "unknown" && (
-                    <Tag color="blue" text={"41.9BBY"} />
+                    <Tag color="blue" text={data?.birth_year} />
                   )}
                 </div>
               </div>
@@ -55,8 +60,12 @@ export const CharacterDetailsModal: React.FC<{ onClose: () => void }> = ({
               ) : (
                 <Card>
                   <div className={styles.detail__description}>
-                    <span>{`hair color: ${data?.hair_color}`}</span>
-                    <span>{`skin color: ${data?.skin_color}`}</span>
+                    <span>{`${t("character.hairColor")}: ${
+                      data?.hair_color
+                    }`}</span>
+                    <span>{`${t("character.skinColor")}: ${
+                      data?.skin_color
+                    }`}</span>
                   </div>
                 </Card>
               )}
@@ -71,12 +80,18 @@ export const CharacterDetailsModal: React.FC<{ onClose: () => void }> = ({
                 <>
                   <Card>
                     {isFinite(Number(data?.height)) && (
-                      <Indicator index={Number(data?.height)} name="height" />
+                      <Indicator
+                        index={Number(data?.height)}
+                        name={t("character.height")}
+                      />
                     )}
                   </Card>
                   <Card>
                     {isFinite(Number(data?.mass)) && (
-                      <Indicator index={Number(data?.mass)} name="mass" />
+                      <Indicator
+                        index={Number(data?.mass)}
+                        name={t("character.mass")}
+                      />
                     )}
                   </Card>
                 </>

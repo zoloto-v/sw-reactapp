@@ -1,0 +1,26 @@
+{
+  "language": "whwokao",
+  "links": {
+    "moreBtn": "Orc no",
+    "Return": "Rcacwoa"
+  },
+  "homePage": {
+    "title": "Noorc corahwh oaooanoorc",
+    "subTitle": "Wochua oaooakanrawhwoaoc anoorc noorc acwoahrracao rrwowhw aworc acwoahrracao ",
+    "moreBtn": "Orc no"
+  },
+  "characterPage": {
+    "title": "rcwochuanaoc"
+  },
+  "nav": {
+    "home": "rawhwoao",
+    "characters": "oaooanoorc"
+  },
+  "eyeFilter": "chuachua",
+  "character": {
+    "height": "coraoorc",
+    "mass": "maanoorcss",
+    "hairColor": "akanrawhwoaoc",
+    "skinColor": "anoorc noorc"
+  }
+}

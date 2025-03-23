@@ -1,0 +1,25 @@
+{
+  "language": "language",
+  "links": {
+    "moreBtn": "See more",
+    "Return": "Return"
+  },
+  "homePage": {
+    "title": "Find all your favorite character",
+    "subTitle": "You can find out all the information about your favorite characters"
+  },
+  "character": {
+    "title": "peoples for you to choose your favorite"
+  },
+  "nav": {
+    "home": "home",
+    "characters": "characters"
+  },
+  "eyeFilter": "color eye",
+  "character_description": {
+    "height": "height",
+    "mass": "mass",
+    "hair_color": "hair color",
+    "skin_color": "skin color"
+  }
+}

@@ -1,3 +1,4 @@
+import { useLanguageContext } from "../../features/language-context/provider";
 import { GENDER_COLOR_LABEL, ICharacterPreview } from "../../shared/types";
 import { Indicator } from "../../shared/ui/indicator";
 import { Tag } from "../../shared/ui/tag";
@@ -13,6 +14,7 @@ export const CharacterPreview: React.FC<ICharacterPreview> = ({
   onClick,
   isPending,
 }) => {
+  const { t } = useLanguageContext();
   return (
     <div
       className={styles["character-preview"]}
@@ -30,8 +32,12 @@ export const CharacterPreview: React.FC<ICharacterPreview> = ({
           </>
         ) : (
           <>
-            {isFinite(+height) && <Indicator index={+height} name="height" />}
-            {isFinite(+mass) && <Indicator index={+mass} name="mass" />}
+            {isFinite(+height) && (
+              <Indicator index={+height} name={t("character.height")} />
+            )}
+            {isFinite(+mass) && (
+              <Indicator index={+mass} name={t("character.mass")} />
+            )}
           </>
         )}
       </div>

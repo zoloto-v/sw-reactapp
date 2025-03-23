@@ -18,6 +18,7 @@ import { createPortal } from "react-dom";
 import { CharacterDetailsModal } from "../../entities/character/ui";
 import Skeleton from "react-loading-skeleton";
 import { ICharacter } from "../../shared/types";
+import { useLanguageContext } from "../../features/language-context/provider";
 const skeletonsList: Array<
   Pick<ICharacter, "name" | "height" | "mass" | "gender" | "birth_year">
 > = new Array(9).fill(null).map((_, i) => ({
@@ -32,6 +33,7 @@ const skeletonsList: Array<
 export const CharactersPage = () => {
   const [showModal, setShowModal] = useState(false);
   const dispatch = useAppDispatch();
+  const { t } = useLanguageContext();
 
   const expensiveFiltering = (
     item: Record<string, string | number | boolean>,
@@ -129,7 +131,7 @@ export const CharactersPage = () => {
   return (
     <Layout>
       <div className={styles.intl}>
-        <span className="mr-12">language</span>
+        <span className="mr-12">{t("language")}</span>
         <Dropdown onChange={onChange} selected={"en"} items={intlMenu} />
       </div>
 
@@ -137,12 +139,12 @@ export const CharactersPage = () => {
         {isPending ? (
           <Skeleton count={1} width="600px" />
         ) : (
-          `${count} peoples for you to choose your favorite`
+          t("characterPage.title")
         )}
       </h2>
 
       <div className={styles.filter}>
-        <span className="mr-12">color eye</span>
+        <span className="mr-12">{t("eyeFilter")}</span>
         <Dropdown
           onChange={onChange}
           selected={filter ?? ""}
