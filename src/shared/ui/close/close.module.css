@@ -16,6 +16,10 @@
   height: 33px;
   width: 9px;
   background-color: #212121;
+
+  @media (max-width: 768px) {
+    background-color: #ffffff;
+  }
 }
 .close:before {
   transform: rotate(45deg);

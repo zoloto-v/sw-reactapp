@@ -46,6 +46,8 @@
   margin-top: 24px;
 
   @media (max-width: 1000px) {
+    max-width: 520px;
+    width: 100%;
     align-items: center;
   }
 }

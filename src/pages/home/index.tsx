@@ -29,7 +29,7 @@ export const HomePage = () => {
                 text="You can find out all the information about your favorite characters"
               />
               <div className="mt-36" />
-              <Link to="/characters" bg={BUTTON_BG["green"]}>
+              <Link to="/characters" bg={BUTTON_BG["yellow"]}>
                 See more
               </Link>
             </div>

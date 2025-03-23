@@ -16,6 +16,19 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -65%);
+
+  @media (max-width: 992px) {
+    width: 630px;
+  }
+
+  @media (max-width: 768px) {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding-top: 0;
+    transform: none;
+  }
 }
 .modal__inner {
   height: 400px;
@@ -23,9 +36,20 @@
   border-radius: 16px;
   background: linear-gradient(#17002F 42%, #1F2A63);
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    min-height: 100vh;
+    height: 100%;
+    border-radius: 0;
+  }
 }
 .modal__close {
   position: absolute;
   top: 5px;
   right: 5px;
+
+  @media (max-width: 768px) {
+    top: 25px;
+    right: 25px;
+  }
 }
