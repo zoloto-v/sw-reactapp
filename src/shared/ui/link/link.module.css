@@ -1,0 +1,26 @@
+.link {
+  cursor: pointer;
+  padding: 17px 64px;
+  font-size: 23px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #212121;
+  background: #FFF;
+  border-radius: 11px;
+  box-shadow: inset 0px -9px 0px 0px #00000018;
+  opacity: 100%;
+  transition: all ease-out 0.1s;
+}
+.link:hover {
+  opacity: 90%;
+  transition: all ease-out 0.1s;
+}
+.link.white {
+  background: #FFF;
+}
+.link.yellow {
+  background: #F5DB13;
+}
+.link.green {
+  background: #73D677;
+}

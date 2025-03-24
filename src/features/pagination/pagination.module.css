@@ -1,0 +1,27 @@
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+}
+.pagination {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  gap: 10px;
+  list-style: none;
+}
+.page-link {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  box-shadow: 0 0 10px 3px #f3f3f3;
+  border-radius: 50%;
+}
+.active {
+  color: blue;
+  opacity: 60%;
+}
